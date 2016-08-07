@@ -36,6 +36,10 @@ public class CampWarDrawingBoard extends View {
         // TODO: in the future, outlines will be replaced with drawings/bitmaps
 
         // TODO: outline camp1
+        float side1 = resHandler.displayMetrics.widthPixels / 3;
+        float side2 = side1/2;
+
+
         // TODO: init firepath origins for camp1
         // TODO: outline camp2
         // TODO: init firepath origins for camp2
