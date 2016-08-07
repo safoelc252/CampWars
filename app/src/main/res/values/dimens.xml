@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_horizontalpad">16dp</dimen>
+    <dimen name="button_verticalpad">32dp</dimen>
+    <dimen name="button_fontsize">18sp</dimen>
+</resources>

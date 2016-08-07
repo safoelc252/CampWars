@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="firepath_mainlinethick">5</integer>
+    <integer name="firepath_maindotrad">10</integer>
+    <integer name="firepath_sublinethick">3</integer>
+    <integer name="firepath_subdotrad">6</integer>
+    <integer name="basecamp_linethick">3</integer>
+</resources>
