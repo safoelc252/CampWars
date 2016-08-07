@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class FirePath {
     ResourceHandler resHandler;
     ArrayList<Point> points = new ArrayList<Point>(10);
-    Point initPoint;
     boolean bActive = true; // TRUE: still a valid/active path, FALSE: already dead path
     boolean bMainFire;
     Paint ActivePoint = new Paint();
@@ -22,19 +21,18 @@ public class FirePath {
     int nPointRadius;
     int nCampColor;
 
-
     public FirePath(ResourceHandler res, boolean bMain, int color, Point startPoint)
     {
         resHandler = res;
         bMainFire = bMain;
         nCampColor = color;
-        initPoint = startPoint;
         InactiveLine.setColor(resHandler.campcolor_inactivefire);
         InactivePoint.setColor(resHandler.campcolor_inactivefire);
         InactivePoint.setStrokeWidth(1.0f);
         ActiveLine.setColor(nCampColor);
         ActivePoint.setColor(nCampColor);
         ActivePoint.setStrokeWidth(1.0f);
+        addNewPoint(startPoint);
 
         // main fire
         if (bMainFire) {
