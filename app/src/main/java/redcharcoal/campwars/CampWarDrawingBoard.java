@@ -42,6 +42,7 @@ public class CampWarDrawingBoard extends View {
 
         camp1 = new Camps(resHandler, resHandler.campcolor_camptop, campoutline1, startpoint1);
         camp2 = new Camps(resHandler, resHandler.campcolor_campbottom, campoutline2, startpoint2);
+        
     }
 
     @Override
