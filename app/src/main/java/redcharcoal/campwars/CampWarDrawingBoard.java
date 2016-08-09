@@ -14,14 +14,7 @@ import java.lang.reflect.Array;
  * Created by kyupas on 7/23/2016.
  */
 public class CampWarDrawingBoard extends View {
-    public static final int STARTPOINT_IDX_MAIN = 0;
-    public static final int STARTPOINT_IDX_SUB1 = 1;
-    public static final int STARTPOINT_IDX_SUB2 = 2;
     ResourceHandler resHandler;
-    Path campoutline1 = new Path();
-    Path campoutline2 = new Path();
-    Point[] startpoint1 = {new Point(), new Point(), new Point()};
-    Point[] startpoint2 = {new Point(), new Point(), new Point()};
     Camps camp1;
     Camps camp2;
 
@@ -31,12 +24,17 @@ public class CampWarDrawingBoard extends View {
         initialize();
     }
 
-    private void initialize()
+    private void initialize() // all drawing calculations are done in drawing board. actual drawing is delegated to each objects.
     {
         // TODO: in the future, outlines will be replaced with drawings/bitmaps
 
-        // outline camp1
+        // outline camp1 and camp2
+        Path campoutline1 = new Path();
+        Path campoutline2 = new Path();
+        Point[] startpoint1 = {new Point(), new Point(), new Point()};
+        Point[] startpoint2 = {new Point(), new Point(), new Point()};
         float scrwidth = resHandler.displayMetrics.widthPixels;
+        float scrheight = resHandler.displayMetrics.heightPixels;
         float side1 = scrwidth / 3;
         float side2 = side1/2;
         float campwidth = side1 + (side2*2);
@@ -53,15 +51,30 @@ public class CampWarDrawingBoard extends View {
         campoutline1.close();
 
         // init firepath origins for camp1
-        startpoint1[STARTPOINT_IDX_MAIN].x = (int)(leftMargin+(campwidth/2));
-        startpoint1[STARTPOINT_IDX_MAIN].y = (int)side1;
-        startpoint1[STARTPOINT_IDX_SUB1].x = (int)(leftMargin+(side2/2));
-        startpoint1[STARTPOINT_IDX_SUB1].y = (int)side2;
-        startpoint1[STARTPOINT_IDX_SUB2].x = (int)(leftMargin+side2+side1+(side2/2));
-        startpoint1[STARTPOINT_IDX_SUB2].y = (int)side2;
+        startpoint1[FirePath.STARTPOINT_IDX_MAIN].x = (int)(leftMargin+(campwidth/2));
+        startpoint1[FirePath.STARTPOINT_IDX_MAIN].y = (int)side1;
+        startpoint1[FirePath.STARTPOINT_IDX_SUB1].x = (int)(leftMargin+(side2/2));
+        startpoint1[FirePath.STARTPOINT_IDX_SUB1].y = (int)side2;
+        startpoint1[FirePath.STARTPOINT_IDX_SUB2].x = (int)(leftMargin+side2+side1+(side2/2));
+        startpoint1[FirePath.STARTPOINT_IDX_SUB2].y = (int)side2;
 
-        // TODO: outline camp2
-        // TODO: init firepath origins for camp2
+        campoutline2.setLastPoint(leftMargin, scrheight);
+        campoutline2.rLineTo(0, -side2);
+        campoutline2.rLineTo(side2, 0);
+        campoutline2.rLineTo(0, -side2);
+        campoutline2.rLineTo(side1, 0);
+        campoutline2.rLineTo(0, side2);
+        campoutline2.rLineTo(side2, 0);
+        campoutline2.rLineTo(0, side2);
+        campoutline2.close();
+
+        // init firepath origins for camp2
+        startpoint2[FirePath.STARTPOINT_IDX_MAIN].x = (int)(leftMargin+(campwidth/2));
+        startpoint2[FirePath.STARTPOINT_IDX_MAIN].y = (int)(scrheight-side1);
+        startpoint2[FirePath.STARTPOINT_IDX_SUB1].x = (int)(leftMargin+(side2/2));
+        startpoint2[FirePath.STARTPOINT_IDX_SUB1].y = (int)(scrheight-side2);
+        startpoint2[FirePath.STARTPOINT_IDX_SUB2].x = (int)(leftMargin+side2+side1+(side2/2));
+        startpoint2[FirePath.STARTPOINT_IDX_SUB2].y = (int)(scrheight-side2);
 
         camp1 = new Camps(resHandler, resHandler.campcolor_camptop, campoutline1, startpoint1);
         camp2 = new Camps(resHandler, resHandler.campcolor_campbottom, campoutline2, startpoint2);
@@ -72,41 +85,18 @@ public class CampWarDrawingBoard extends View {
     public void onDraw(Canvas canvas)
     {
         // draw the camps based from path in camp object
-        canvas.drawPath(camp1.basePath, camp1.basePaintFill);
-        canvas.drawPath(camp1.basePath, camp1.basePaintOutline);
-        // draw the camps END
+        camp1.drawMyself(canvas);
+        camp2.drawMyself(canvas);
 
-        FirePath curFire;
-        Point pLastPt = new Point(), pCurPt;
-        Paint pPoint, pLine;
-
-        // TODO: then draw all fire paths
+        // then draw all fire paths
         for(int i = 0; i < camp1.firecontainer.size(); i++) {
             for(int j = 0; j < camp1.firecontainer.get(i).size(); j++) {
-                curFire = camp1.firecontainer.get(i).get(j);
-                if (curFire.bActive) {
-                    pPoint = curFire.ActivePoint;
-                    pLine = curFire.ActiveLine;
-                }
-                else {
-                    pPoint = curFire.InactivePoint;
-                    pLine = curFire.InactiveLine;
-                }
-                for(int k = 0; k < curFire.points.size(); k++) {
-                    pCurPt = curFire.points.get(k);
-                    if(i == 0){ // main fire
-                        canvas.drawCircle(pCurPt.x, pCurPt.y, resHandler.firepath_maindotrad, pPoint);
-                        if(k > 0)
-                            canvas.drawLine(pCurPt.x, pCurPt.y, pLastPt.x, pLastPt.y, pLine);
-                    }
-                    else // sub fires
-                    {
-                        canvas.drawCircle(pCurPt.x, pCurPt.y, resHandler.firepath_subdotrad, pPoint);
-                        if(k > 0)
-                            canvas.drawLine(pCurPt.x, pCurPt.y, pLastPt.x, pLastPt.y, pLine);
-                    }
-                    pLastPt = pCurPt;
-                }
+                camp1.firecontainer.get(i).get(j).drawMyself(canvas);
+            }
+        }
+        for(int i = 0; i < camp2.firecontainer.size(); i++) {
+            for(int j = 0; j < camp2.firecontainer.get(i).size(); j++) {
+                camp2.firecontainer.get(i).get(j).drawMyself(canvas);
             }
         }
     }

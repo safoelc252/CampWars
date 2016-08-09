@@ -1,6 +1,7 @@
 package redcharcoal.campwars;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -29,9 +30,9 @@ public class Camps {
         ArrayList<FirePath> subfire1 = new ArrayList<FirePath>();
         ArrayList<FirePath> subfire2 = new ArrayList<FirePath>();
 
-        FirePath maintmp = new FirePath(res, true, campcolor, startpoints[CampWarDrawingBoard.STARTPOINT_IDX_MAIN]);
-        FirePath sub1tmp = new FirePath(res, false, campcolor, startpoints[CampWarDrawingBoard.STARTPOINT_IDX_SUB1]);
-        FirePath sub2tmp = new FirePath(res, false, campcolor, startpoints[CampWarDrawingBoard.STARTPOINT_IDX_SUB2]);
+        FirePath maintmp = new FirePath(res, true, campcolor, startpoints[FirePath.STARTPOINT_IDX_MAIN]);
+        FirePath sub1tmp = new FirePath(res, false, campcolor, startpoints[FirePath.STARTPOINT_IDX_SUB1]);
+        FirePath sub2tmp = new FirePath(res, false, campcolor, startpoints[FirePath.STARTPOINT_IDX_SUB2]);
 
         mainfire.add(maintmp);
         subfire1.add(sub1tmp);
@@ -46,5 +47,11 @@ public class Camps {
         basePaintOutline.setStyle(Paint.Style.STROKE);
         basePaintFill.setColor(campcolor);
         basePaintFill.setStyle(Paint.Style.FILL);
+    }
+
+    public void drawMyself(Canvas canvas)
+    {
+        //canvas.drawPath(basePath, basePaintFill);
+        canvas.drawPath(basePath, basePaintOutline);
     }
 }
