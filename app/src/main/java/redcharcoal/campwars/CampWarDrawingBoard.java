@@ -18,10 +18,18 @@ public class CampWarDrawingBoard extends View {
     Camps camp1;
     Camps camp2;
 
+    // temp variables to playaround
+    Point pTmpPt = new Point();
+    Paint pTmpPaint = new Paint();
+
     public CampWarDrawingBoard(Context context, ResourceHandler res) {
         super(context);
         resHandler = res;
         initialize();
+
+        // temp variables to playaround
+        pTmpPaint.setColor(Color.BLACK);
+        pTmpPaint.setStyle(Paint.Style.FILL_AND_STROKE);
     }
 
     private void initialize() // all drawing calculations are done in drawing board. actual drawing is delegated to each objects.
@@ -99,5 +107,8 @@ public class CampWarDrawingBoard extends View {
                 camp2.firecontainer.get(i).get(j).drawMyself(canvas);
             }
         }
+
+        // temp code to playaround
+        canvas.drawCircle(pTmpPt.x, pTmpPt.y, 70, pTmpPaint);
     }
 }

@@ -72,10 +72,7 @@ public class ModeOneActivity extends Activity implements
         // TODO: identify turn, then identify which path is being selected
         FirePath pTmpPath = drawingboard.camp1.firecontainer.get(0).get(0);
         pTmpPath.addNewPoint(pTmpPath.getNewPointFromVelocity(velocityX,velocityY));
-        pTmpPath = drawingboard.camp1.firecontainer.get(1).get(0);
-        pTmpPath.addNewPoint(pTmpPath.getNewPointFromVelocity(velocityX,velocityY));
-        pTmpPath = drawingboard.camp1.firecontainer.get(2).get(0);
-        pTmpPath.addNewPoint(pTmpPath.getNewPointFromVelocity(velocityX,velocityY));
+
 
         drawingboard.invalidate();
         return true;
@@ -89,6 +86,10 @@ public class ModeOneActivity extends Activity implements
 
     @Override
     public void onLongPress(MotionEvent event) {
+        // TODO: apply formula to identify what fire is within range
+        drawingboard.pTmpPt.x = (int)event.getRawX();
+        drawingboard.pTmpPt.y = (int)event.getRawY();
+        drawingboard.invalidate();
     }
 
     @Override
@@ -116,7 +117,5 @@ public class ModeOneActivity extends Activity implements
     }
 
     @Override
-    public boolean onSingleTapConfirmed(MotionEvent event) {
-        return false;
-    }
+    public boolean onSingleTapConfirmed(MotionEvent event) {  return false; }
 }
