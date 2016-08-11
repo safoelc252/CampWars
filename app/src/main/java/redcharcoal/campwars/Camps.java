@@ -54,4 +54,5 @@ public class Camps {
         //canvas.drawPath(basePath, basePaintFill);
         canvas.drawPath(basePath, basePaintOutline);
     }
+
 }

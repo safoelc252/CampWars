@@ -69,11 +69,7 @@ public class ModeOneActivity extends Activity implements
     public boolean onFling(MotionEvent event1, MotionEvent event2,
                            float velocityX, float velocityY) {
 
-        // TODO: identify turn, then identify which path is being selected
-        FirePath pTmpPath = drawingboard.camp1.firecontainer.get(0).get(0);
-        pTmpPath.addNewPoint(pTmpPath.getNewPointFromVelocity(velocityX,velocityY));
-
-
+        drawingboard.processFling(velocityX, velocityY);
         drawingboard.invalidate();
         return true;
     }
@@ -87,8 +83,7 @@ public class ModeOneActivity extends Activity implements
     @Override
     public void onLongPress(MotionEvent event) {
         // TODO: apply formula to identify what fire is within range
-        drawingboard.pTmpPt.x = (int)event.getRawX();
-        drawingboard.pTmpPt.y = (int)event.getRawY();
+        drawingboard.processLongPress(event);
         drawingboard.invalidate();
     }
 
