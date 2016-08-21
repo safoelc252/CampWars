@@ -71,7 +71,7 @@ public class CampWarDrawingBoard extends View {
         campoutline2.rLineTo(0, side2);
         campoutline2.rLineTo(side2, 0);
         campoutline2.rLineTo(0, side2);
-        campoutline2.close();
+        campoutline2.close(); // yes!
 
         // init firepath origins for camp2
         startpoint2[FirePath.STARTPOINT_IDX_MAIN].x = (int) (leftMargin + (campwidth / 2));
