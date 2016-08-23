@@ -12,6 +12,8 @@ public class ResourceHandler {
     public int campcolor_campbottom;
     public int campcolor_campoutline;
     public int campcolor_inactivefire;
+    public int campcolor_disabledcampoutline;
+    public int campcolor_disabledinactivefire;
     public int firepath_mainlinethick;
     public int firepath_maindotrad;
     public int firepath_sublinethick;

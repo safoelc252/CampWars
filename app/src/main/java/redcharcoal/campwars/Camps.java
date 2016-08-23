@@ -18,6 +18,8 @@ public class Camps {
     Paint basePaintOutline = new Paint();
     Paint basePaintFill = new Paint();
     Path basePath;
+    int nCampColor;
+    boolean bIsMyTurn;
     ArrayList<ArrayList<FirePath>> firecontainer = new ArrayList<ArrayList<FirePath>>();
 
 
@@ -47,10 +49,37 @@ public class Camps {
         basePaintOutline.setStyle(Paint.Style.STROKE);
         basePaintFill.setColor(campcolor);
         basePaintFill.setStyle(Paint.Style.FILL);
+        bIsMyTurn = false;
+        nCampColor = campcolor;
+    }
+
+    public void updateCampColor() {
+        if (bIsMyTurn)
+        {
+            basePaintOutline.setColor(resHandler.campcolor_campoutline);
+            basePaintFill.setColor(nCampColor);
+            for (int i = 0; i < firecontainer.size(); i++) {
+                for (int j = 0; j < firecontainer.get(i).size(); j++) {
+                    firecontainer.get(i).get(j).updateFireColor(nCampColor, nCampColor);
+                }
+            }
+        }
+        else {
+            basePaintFill.setColor(resHandler.campcolor_disabledcampoutline);
+            basePaintOutline.setColor(resHandler.campcolor_disabledcampoutline);
+            for (int i = 0; i < firecontainer.size(); i++) {
+                for (int j = 0; j < firecontainer.get(i).size(); j++) {
+                    firecontainer.get(i).get(j).updateFireColor(resHandler.campcolor_disabledcampoutline,
+                                                                resHandler.campcolor_disabledcampoutline);
+                }
+            }
+        }
     }
 
     public void drawMyself(Canvas canvas)
     {
+        updateCampColor();
+
         //canvas.drawPath(basePath, basePaintFill);
         canvas.drawPath(basePath, basePaintOutline);
     }

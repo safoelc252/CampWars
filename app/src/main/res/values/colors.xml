@@ -7,4 +7,6 @@
     <color name="campcolor_campbot">#FF0000</color>
     <color name="campcolor_campoutline">#000000</color>
     <color name="campcolor_inactivefire">#BBBBBB</color>
+    <color name="campcolor_disabledcampoutline">#999999</color>
+    <color name="campcolor_disabledinactivefire">#DDDDDD</color>
 </resources>

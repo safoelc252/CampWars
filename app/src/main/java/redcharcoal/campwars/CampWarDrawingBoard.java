@@ -20,7 +20,6 @@ public class CampWarDrawingBoard extends View {
     ResourceHandler resHandler;
     Camps camp1;
     Camps camp2;
-    Camps campsturn;
     FirePath fireturn;
 
     public CampWarDrawingBoard(Context context, ResourceHandler res) {
@@ -71,7 +70,7 @@ public class CampWarDrawingBoard extends View {
         campoutline2.rLineTo(0, side2);
         campoutline2.rLineTo(side2, 0);
         campoutline2.rLineTo(0, side2);
-        campoutline2.close(); // yes!
+        campoutline2.close();
 
         // init firepath origins for camp2
         startpoint2[FirePath.STARTPOINT_IDX_MAIN].x = (int) (leftMargin + (campwidth / 2));
@@ -91,15 +90,22 @@ public class CampWarDrawingBoard extends View {
 
     public void setTurn(Camps camp)
     {
-        campsturn = camp;
+        if (camp == camp1)
+        {
+            camp1.bIsMyTurn = true;
+            camp2.bIsMyTurn = false;
+        }
+        else
+        {
+            camp1.bIsMyTurn = false;
+            camp2.bIsMyTurn = true;
+        }
     }
 
     public void toggleTurn()
     {
-        if (campsturn == camp1)
-            setTurn(camp2);
-        else
-            setTurn(camp1);
+        camp1.bIsMyTurn = !camp1.bIsMyTurn;
+        camp2.bIsMyTurn = !camp2.bIsMyTurn;
     }
 
     public void processLongPress(MotionEvent event)
@@ -108,6 +114,7 @@ public class CampWarDrawingBoard extends View {
         ArrayList<Float> validFireDist = new ArrayList<Float>();
         FirePath curFirePath;
         Point pLastPt;
+        Camps campsturn = camp1.bIsMyTurn ? camp1 : camp2;
         float distance = 0.0f,
                 deltaX = 0.0f,
                 deltaY = 0.0f;
@@ -160,6 +167,7 @@ public class CampWarDrawingBoard extends View {
     public void onDraw(Canvas canvas)
     {
         // draw the camps based from path in camp object
+        // TODO: redesign color management of all elements!!!
         camp1.drawMyself(canvas);
         camp2.drawMyself(canvas);
 

@@ -28,8 +28,7 @@ public class FirePath {
         resHandler = res;
         bMainFire = bMain;
         nCampColor = color;
-        PaintLine.setColor(nCampColor);
-        PaintPoint.setColor(nCampColor);
+        updateFireColor(nCampColor, nCampColor);
         PaintPoint.setStrokeWidth(1.0f);
         addNewPoint(startPoint);
 
@@ -43,6 +42,12 @@ public class FirePath {
             nPointRadius = resHandler.firepath_subdotrad;
         }
 
+    }
+
+    public void updateFireColor(int nPointColor, int nLineColor)
+    {
+        PaintLine.setColor(nLineColor);
+        PaintPoint.setColor(nPointColor);
     }
 
     public void addNewPoint(Point newPoint)

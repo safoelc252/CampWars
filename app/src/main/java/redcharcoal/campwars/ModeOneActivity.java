@@ -35,6 +35,8 @@ public class ModeOneActivity extends Activity implements
         resHandler.campcolor_campoutline = getResources().getColor(R.color.campcolor_campoutline);
         resHandler.campcolor_camptop = getResources().getColor(R.color.campcolor_camptop);
         resHandler.campcolor_inactivefire = getResources().getColor(R.color.campcolor_inactivefire);
+        resHandler.campcolor_disabledcampoutline = getResources().getColor(R.color.campcolor_disabledcampoutline);
+        resHandler.campcolor_disabledinactivefire = getResources().getColor(R.color.campcolor_disabledinactivefire);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState)
